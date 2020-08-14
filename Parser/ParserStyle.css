@@ -1,0 +1,106 @@
+header{
+    text-align: center;
+    background-color: #151515;
+    border-radius: 30px;
+    border: solid black 15px;
+    color: lightseagreen;
+    font-size: 25px;
+}
+.title{
+    display: inline-block;
+    width: 50%;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 45px;   
+}
+.descripcion{
+    text-align: center;
+    padding: 30px;
+    font-size: 18px;
+    color:rgb(201, 198, 175);
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.Analizador{
+    display: inline-block;
+    width: 15%;
+    font-family: cursive;
+}
+#nombre_archivo{
+    border-radius: 5px; 
+    height: 20px;
+    border: ridge rgb(16, 16, 17) 1.5px
+
+}
+.lecturaArchivo{
+    display: inline-block;
+    vertical-align: top;
+    width: 40%;
+    padding-left: 80px;  
+}
+.codigoFuente{
+    text-align: center;
+    font-family: monospace;
+    font-weight: bold; 
+    font-size: 28px; 
+    margin-top: 30px; 
+    color: lightseagreen;
+}
+.botonCargar{
+    color: white;
+}
+#salida_cadena{
+    background-color: white;
+    border-radius: 15px;
+    border: solid black 10px;
+    margin: 30px;
+    width: 500px; 
+    height: 300px;
+}
+.VerificaciónDelCodigo{
+    display: inline-block;
+    width: 30%;
+    padding-left: 150px;
+    color: lightseagreen;
+    font-weight: bold;
+    font-size: 21px;
+}
+#Mensaje{
+    border-radius: 10px;
+    border: ridge wheat 2.0px;
+    background-color: #140703;
+    margin-top: -10px;
+    font-size: 18px;
+    color: rgb(38, 206, 122);
+}
+
+body{
+    background-color: #026096;
+    background-image: url("fondo.jpg");
+    background-size: cover;
+}
+#cargar_archivo{
+    background: rgb(73, 153, 140);
+    cursor: pointer;
+    height: 30px;
+    color: white;
+    border-radius: 10px;
+    font-family: cursive;
+    
+}
+#cargar_archivo:hover{
+    border-color: rgb(232, 244, 245);
+}
+#Reconocedor{
+    border-radius: 10px;
+    font-size: 20px;
+    color: #EFE9F4;
+    background: rgb(73, 153, 140);
+    font-family: cursive;
+    width: 40%;
+    height: 60px;
+    cursor: pointer;
+}
+#Reconocedor:hover{
+    border-color: rgb(232, 244, 245);
+}

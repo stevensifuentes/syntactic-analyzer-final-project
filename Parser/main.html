@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Parser LL(1)</title>
+    <link rel="stylesheet" href="ParserStyle.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1 class="title">Análizador Sintáctico</h1>
+      <p class="Analizador">Parser LL(1)</p>
+    </header>
+    <div class="descripcion">
+      Verifica la estructura gramatical del lenguaje C
+    </div>
+
+    <section>
+      <div class="lecturaArchivo">
+        <div class="botonCargar">
+          <input
+            type="file"
+            id="archivo_input"
+            class="col-md-offset-4 col-md-4"
+            onchange="return validarExt()"
+          />
+        </div>
+        <div class="codigoFuente">Programa fuente</div>
+        <container id="Pantalla">
+          <div id="salida_cadena" cols="30" rows="10"></div>
+        </container>
+        <!--<textarea id="salida_cadena" cols="30" rows="10"></textarea>-->
+      </div>
+
+      <div class="VerificaciónDelCodigo">
+        <div>
+          <p>Ingrese la ruta del archivo a abrir:</p>
+          <textarea
+            id="nombre_archivo"
+            cols="30"
+            placeholder="Nombre de archivo.txt"
+          ></textarea>
+          <input
+            type="button"
+            id="cargar_archivo"
+            value="Leer archivo"
+          /><br /><br />
+          <input type="button" id="Reconocedor" value="Reconocedor" />
+          <p style="margin-top: 12px;">Mensaje</p>
+        </div>
+        <div>
+          <textarea id="Mensaje" cols="35" rows="2"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <script src="main2.js"></script>
+  </body>
+</html>
