@@ -1,0 +1,12 @@
+﻿int a, b=31;
+cin>>a;
+a=a+b;
+if(a>1){
+    b=b+1;
+}else{
+    a=4;
+    if b<4){
+        b=3;
+    }
+}
+cout<<a+b;

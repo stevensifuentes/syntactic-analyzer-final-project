@@ -1,0 +1,209 @@
+L = {
+	int a, b = 2;
+	cin>>a;
+	a=a+b;
+	if(a>1){
+    		b=b+1;
+	}else{
+    		a=4;
+    		if(b<4){
+        		b=3;
+   		}
+	}
+	cout<<a+b;
+}
+
+P: 
+
+(1) <candidata> --> <inicio> $
+(2) <inicio> --> <declaracion> <siguiente>
+(3) <siguiente> --> G <siguiente>
+(4) 		--> lambda	
+(5) G --> <asignacion>
+(6)   --> <output>
+(7)   --> <input>
+(8)   --> <sentenciaIF>
+(9)   --> <declaracion>
+
+		  Regla 1 es no anulable: Iniciales(<inicio> $) = { ID, cout, cin, if, int, float, double }
+                  SD(1) = {ID, cout, cin, if, int, float, double}
+
+                  Regla 2 es no anulable: Iniciales(<declaracion> <siguiente>) = { ID }
+                  SD(2) = { ID }
+
+		  Simbolos directores: Regla (3 y 4)
+                  Regla 3 es no anulable: Iniciales(G <siguiente>) = { ID, cout, cin, if, int, float, double }
+                  SD(3) = {ID, cout, cin, if, int, float, double}
+                  Regla 4 es anulable: Iniciales(lambda) U Seguidores(<siguiente>) = Seguidores (<inicio>) = { $ }
+                  SD(4) = { $ }
+
+		  Simbolos directores: Regla (5 a 9)	
+                  Regla 5 es no anulable: Iniciales(<asignacion>) = { ID }
+                  SD(5) = { ID }
+                  Regla 6 es no anulable: Iniciales(<output>) = { cout }
+                  SD(6) = { cout }
+                  Regla 7 es no anulable: Iniciales(<input>) = { cin }
+                  SD(7) = { cin }
+                  Regla 8 es no anulable: Iniciales(<sentenciaIF>) = { if }
+                  SD(8) = { if }
+                  Regla 9 es no anulable: Iniciales(<declaracion>) = { int, float, double }
+                  SD (9) = { int, float, double }
+                  
+
+
+(10) <declaracion> --> <tipo> <listaVar> ;
+(11) <tipo> --> int | float | double
+(12) <listaVar> --> ID <resto> X 
+(13) X --> , <listaVar>
+(14)   --> lambda
+(15) <resto> --> = NUM
+(16)         --> lambda
+
+                 Iniciales (<tipo> <listaVar> ;) = { int, float, double }
+                 Seguidores (<tipo>) = Iniciales (<listaVar>) = { ID }
+                
+                 <resto> es anulable
+                 X es anulable
+                 
+                 Regla 10 es no anulable: Iniciales (<tipo> <listaVar> ; ) = { int, float, double }
+                 SD(10) = { int, float, double }
+                 
+		 Regla 11 es no anulable: Iniciales (int | float | double) = { int, float, double }
+                 SD(11) = { int, float, double }
+                 
+		 Regla 12 es no anulable: Iniciales(ID <resto> X) = { ID }
+                 SD(12) = { ID }
+
+ 		 Simbolos directores: Regla (13 y 14)
+                 Regla 13: es no anulable: Iniciales( , <listaVar>) = { , }
+                 SD(13) = { , }
+                 Regla 14: es anulable: Iniciales(lambda) U Seguidores(X) = Seguidores(<listaVar>) = { ; }
+                 SD(14) = { ; }
+                 
+                 Simbolos directores: Regla (15 y 16)
+		 Regla 15: es no anulable: Iniciales(= NUM) = { = }
+                 SD(15) = { = }
+                 Regla 16: es anulable: Iniciales(lambda) U Seguidores(<resto>) = Iniciales(X) = { , }
+                 SD(16) = { , }
+
+(17) <input> --> cin >> ID S ;
+(18) S --> >> ID S 
+(19)   --> lambda
+
+                 Iniciales (cin >> ID S) = { cin }
+                 Seguidores ( S ) = { ; }
+  
+                 S es anulable
+
+                 Regla 17 es no anulable: Iniciales(cin >> ID S ;) = { cin }
+                 SD(17) = { cin }
+                
+                 Simbolos directores: Regla (18 y 19)
+                 Regla 18 es no anulable: Iniciales(>> ID S) = { >> }
+                 SD(18) = { >> }
+                 Regla 19 es anulable: Iniciales(lambda) U Seguidores(S) = { ; }
+                 SD(19) = { ; }
+
+(20) <asignación> --> ID = <expresion> ;
+(21) A --> <op> <operando> A
+(22)   --> lambda
+(23) <expresion> --> <operando> A
+(24) <operando> --> ID | NUM
+(25) <op> --> + | - | * | / 
+
+                  Iniciales (ID = <expresion>) = { ID }
+                  Seguidores ( <expresion> ) = { ; }
+
+                  A es anulable
+          
+                  Regla 20 es no anulable: Iniciales( ID = <expresion> ;) = { ID }
+                  SD(20) = { ID }
+
+                  Simbolos directores: Regla (21 y 22)
+                  Regla 21 es no anulable: Iniciales(<op> <operando> A) = Iniciales(<op>) = { + , - , * , / }
+                  SD(21) = { + , - , * , / }
+                  Regla 22 es anulable: Iniciales(lambda) U Seguidores(A) = Seguidores(A) U Seguidores(<expresion>) = { ; }
+                  SD(22) = { ; } 
+
+                  Regla 23 es no anulable: Iniciales(<operando> A) = { ID , NUM }
+                  SD(23) = { ID , NUM }
+
+                  Regla 24 es no anulable: Iniciales(ID | NUM) = { ID , NUM }
+                  SD(24) = { ID , NUM }
+
+                  Regla 25 es no anulable: Iniciales( + | - | * | / ) = { + , - , * , /}
+                  SD(25) = { + , - , * , / }
+
+(26) <sentenciaIF> --> if ( <condicion> ) { <operacion> } Z 
+(27) Z --> else { <operacion> }
+(28)   --> lambda
+(29) <condicion> --> <operando> <comparador> <operando>
+(30) <comparador> --> < | > | == | != | >= | <= 	
+(31) <continua> --> <operacion>
+(32)            --> <sentenciaIF>
+(33)            --> lambda
+(34) <operacion> --> R <continua>
+(35) R --> <asignacion>
+(36)   --> <output>
+(37)   --> <input>
+
+                 Iniciales (  if ( <condicion> ) { <operacion> } Z   ) = { if }
+                 Seguidores ( <condicion> ) = { ) }
+                  
+                 Z es anulable
+                 <continua> es anulable
+    
+                 Regla 26 es no anulable: Iniciales(if ( <condicion> ) { <operacion> } Z) = { if }
+                 SD(26) = { if }
+             
+		 Simbolos directores: Regla (27 y 28)
+                 Regla 27 es no anulable: Iniciales(else { <operacion> }) = { else }
+                 SD(27) = { else }
+                 Regla 28 es anulable: Iniciales(lambda) U Seguidores(Z) = Seguidores(<sentenciaIF>) = Seguidores(G)USeguidores(<continua>) = Seguidores(<operacion>) = { $, } }
+                 SD(28) = { $, } }
+
+                 Regla 29 es no anulable: Iniciales(<operando> <comparador> <operando>) = {ID , NUM}
+                 SD(29) = {ID , NUM}
+
+                 Regla 30 es no anulable: Iniciales(< | > | == | != | >= | <= ) = { <, >, ==, !=, >=, <= }
+                 SD(30) = { <, >, ==, !=, >=, <= }
+
+		 Simbolos directores: Regla (31 , 32 y 33)
+                 Regla 31 es no anulable: Iniciales(<operacion>) = Iniciales(R <continua>) = { ID, cout, cin }
+                 SD(31) = { ID, cout, cin }
+                 Regla 32 es no anulable: Iniciales(<sentenciaIF>) = { if }
+                 SD(32) = { if }
+                 Regla 33 es anulable: Iniciales(lambda) U Seguidores(<continua>) = Seguidores(<operacion>) = { } }
+                 SD(33) = { } }
+
+                 Regla 34 es no anulable: Iniciales(R <continua>) = { ID, cout, cin }
+                 SD(34) = { ID, cout, cin }
+		 
+		 Simbolos directores: Regla (35 , 36 y 37)
+                 Regla 35 es no anulable: Iniciales(<asignacion>) = { ID }
+                 SD(35) = { ID }
+                 Regla 36 es no anulable: Iniciales(<output>) = { cout }
+                 SD(36) = { cout }
+                 Regla 37 es no anulable: Iniciales (<input>) = { cin }
+                 SD(37) = { cin }
+
+(38) <output> --> cout << ID  W ;  
+(39) W --> <op>  <operando> W
+(40)   --> lambda
+
+                  Iniciales ( cout << ID  W ) = { cout }
+                  Seguidores ( W ) = { ; }
+              
+                  W es anulable 
+
+                  Regla 38 es no anulable: Iniciales(cout << ID  W ;) = { cout }
+                  SD(38) = { cout }
+
+                  Simbolos directores: Regla (39 y 40) 
+
+                  Regla 39 es no anulable: Iniciales(<op>  <operando> W) = Iniciales(<op>) = { + , - , * , / } 
+                  SD(39) = { + , - , * , / } 
+                  Regla 40 es anulable: Iniciales(lambda) U Seguidores(W) = { ; }
+                  SD(40) = { ; }
+
+                  
